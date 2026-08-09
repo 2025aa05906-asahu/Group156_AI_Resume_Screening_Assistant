@@ -1,0 +1,22 @@
+Python Developer
+
+We are looking for an experienced Python Developer.
+
+Required Skills:
+- Python
+- SQL
+- Machine Learning
+- TensorFlow
+- AWS
+- Docker
+- Git
+
+Preferred Skills:
+- Streamlit
+- FastAPI
+
+Experience:
+3+ years
+
+Responsibilities:
+Develop AI applications, APIs, and machine learning solutions.

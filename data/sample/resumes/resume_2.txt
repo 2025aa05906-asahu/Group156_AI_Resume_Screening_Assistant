@@ -1,0 +1,14 @@
+Alice Johnson
+
+Software Engineer
+
+Skills:
+Python
+SQL
+AWS
+Git
+
+Experience:
+2 years
+
+Worked on backend APIs and cloud deployment.

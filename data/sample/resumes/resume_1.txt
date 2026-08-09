@@ -1,0 +1,18 @@
+John Smith
+
+Python Developer
+
+Experience:
+5 years
+
+Skills:
+Python
+SQL
+Machine Learning
+TensorFlow
+AWS
+Docker
+Git
+FastAPI
+
+Worked on AI and NLP projects using Python.
