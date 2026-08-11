@@ -6,6 +6,7 @@ from preprocessing.text_preprocessor import TextPreprocessor
 from services.embedding_service import EmbeddingModel
 from services.similarity_service import SimilarityModel
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -17,12 +18,17 @@ class RankingService:
         job_description: str,
         resumes: List[Dict],
     ) -> List[Dict]:
+        """Rank candidate resumes against a job description."""
 
         if not job_description or not job_description.strip():
-            raise ValueError("Job Description cannot be empty.")
+            raise ValueError(
+                "Job Description cannot be empty."
+            )
 
         if not resumes:
-            logger.warning("No resumes supplied.")
+            logger.warning(
+                "No resumes supplied."
+            )
             return []
 
         logger.info(
@@ -34,12 +40,16 @@ class RankingService:
             job_description
         )
 
-        jd_embedding = EmbeddingModel.generate_embedding(
-            jd_clean
+        jd_embedding = (
+            EmbeddingModel.generate_embedding(
+                jd_clean
+            )
         )
 
         jd_skills = set(
-            SkillExtractor.extract_skills(job_description)
+            SkillExtractor.extract_skills(
+                job_description
+            )
         )
 
         ranked_candidates = []
@@ -50,7 +60,10 @@ class RankingService:
                 "Unknown Candidate",
             )
 
-            resume_text = resume.get("text", "")
+            resume_text = resume.get(
+                "text",
+                "",
+            )
 
             if not resume_text.strip():
                 logger.warning(
@@ -59,8 +72,10 @@ class RankingService:
                 )
                 continue
 
-            resume_clean = TextPreprocessor.preprocess(
-                resume_text
+            resume_clean = (
+                TextPreprocessor.preprocess(
+                    resume_text
+                )
             )
 
             resume_embedding = (
@@ -83,11 +98,15 @@ class RankingService:
             )
 
             matched_skills = sorted(
-                resume_skills.intersection(jd_skills)
+                resume_skills.intersection(
+                    jd_skills
+                )
             )
 
             missing_skills = sorted(
-                jd_skills.difference(resume_skills)
+                jd_skills.difference(
+                    resume_skills
+                )
             )
 
             ranked_candidates.append(
@@ -105,6 +124,8 @@ class RankingService:
             reverse=True,
         )
 
-        logger.info("Candidate ranking completed.")
+        logger.info(
+            "Candidate ranking completed."
+        )
 
         return ranked_candidates
