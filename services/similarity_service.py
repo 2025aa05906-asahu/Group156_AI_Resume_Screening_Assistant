@@ -3,6 +3,7 @@ import logging
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -14,11 +15,19 @@ class SimilarityModel:
         resume_embedding,
         jd_embedding,
     ):
-        if resume_embedding is None or jd_embedding is None:
-            raise ValueError("Embeddings cannot be None.")
+        """Calculate cosine similarity and assign a match category."""
 
-        resume_embedding = np.asarray(resume_embedding)
-        jd_embedding = np.asarray(jd_embedding)
+        if resume_embedding is None or jd_embedding is None:
+            raise ValueError(
+                "Embeddings cannot be None."
+            )
+
+        resume_embedding = np.asarray(
+            resume_embedding
+        )
+        jd_embedding = np.asarray(
+            jd_embedding
+        )
 
         if resume_embedding.shape != jd_embedding.shape:
             raise ValueError(
@@ -31,9 +40,15 @@ class SimilarityModel:
             jd_embedding.reshape(1, -1),
         )[0][0]
 
-        score = max(0.0, min(1.0, float(score)))
+        score = max(
+            0.0,
+            min(1.0, float(score)),
+        )
 
-        percentage = round(score * 100, 2)
+        percentage = round(
+            score * 100,
+            2,
+        )
 
         if percentage >= 85:
             category = "Excellent Match"

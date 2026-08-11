@@ -4,7 +4,9 @@ import string
 
 import spacy
 
+
 logger = logging.getLogger(__name__)
+
 
 try:
     nlp = spacy.load("en_core_web_sm")
@@ -19,32 +21,69 @@ class TextPreprocessor:
 
     @staticmethod
     def clean_text(text: str) -> str:
+        """Clean raw resume or job-description text."""
+
         if text is None:
             raise ValueError("Text cannot be None.")
 
         if not text.strip():
-            logger.warning("Empty text received for preprocessing.")
+            logger.warning(
+                "Empty text received for preprocessing."
+            )
             return ""
 
         text = text.lower()
 
-        text = re.sub(r"http\S+|www\S+", "", text)
-        text = re.sub(r"\S+@\S+", "", text)
-        text = re.sub(r"\d+", " ", text)
-
-        text = text.translate(
-            str.maketrans("", "", string.punctuation)
+        # Remove URLs
+        text = re.sub(
+            r"http\S+|www\S+",
+            "",
+            text,
         )
 
-        text = re.sub(r"\s+", " ", text)
+        # Remove email addresses
+        text = re.sub(
+            r"\S+@\S+",
+            "",
+            text,
+        )
+
+        # Remove numbers
+        text = re.sub(
+            r"\d+",
+            " ",
+            text,
+        )
+
+        # Remove punctuation
+        text = text.translate(
+            str.maketrans(
+                "",
+                "",
+                string.punctuation,
+            )
+        )
+
+        # Normalize whitespace
+        text = re.sub(
+            r"\s+",
+            " ",
+            text,
+        )
 
         return text.strip()
 
     @staticmethod
     def preprocess(text: str) -> str:
-        logger.info("Starting text preprocessing.")
+        """Clean, tokenize, remove stop words, and lemmatize text."""
 
-        cleaned_text = TextPreprocessor.clean_text(text)
+        logger.info(
+            "Starting text preprocessing."
+        )
+
+        cleaned_text = TextPreprocessor.clean_text(
+            text
+        )
 
         if not cleaned_text:
             return ""
@@ -69,6 +108,8 @@ class TextPreprocessor:
 
         result = " ".join(tokens)
 
-        logger.info("Text preprocessing completed.")
+        logger.info(
+            "Text preprocessing completed."
+        )
 
         return result
