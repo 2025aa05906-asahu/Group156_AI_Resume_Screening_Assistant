@@ -1,6 +1,7 @@
 import pytest
-from api.main import app
 from fastapi.testclient import TestClient
+
+from api.main import app
 from utils.validator import validate_file
 
 client = TestClient(app)
@@ -17,8 +18,8 @@ def test_malicious_input_is_handled():
         },
     )
 
-    # The API should handle the input without returning a server crash.
-    assert response.status_code in (200, 400, 422, 500)
+    # The API should safely handle the input without an internal server error.
+    assert response.status_code in (200, 400, 422)
 
 
 def test_internal_error_details_are_not_exposed():
@@ -45,7 +46,7 @@ def test_unsupported_file_type_is_rejected():
 
 
 def test_file_without_extension_is_rejected():
-    """Test that files without an extension are rejected."""
+    """Test that files without extensions are rejected."""
 
     with pytest.raises(ValueError):
         validate_file("resume")
