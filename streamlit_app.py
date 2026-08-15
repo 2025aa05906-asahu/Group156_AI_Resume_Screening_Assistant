@@ -6,7 +6,6 @@ import streamlit as st
 from services.screening_service import ScreeningService
 from utils.logger import setup_logger
 
-
 setup_logger()
 
 st.set_page_config(
@@ -83,20 +82,16 @@ if st.button("Analyze Resumes", type="primary"):
                     range(1, len(display_df) + 1),
                 )
 
-                display_df["matched_skills"] = display_df[
-                    "matched_skills"
-                ].apply(
-                    lambda skills: ", ".join(skills)
-                    if isinstance(skills, list)
-                    else str(skills)
+                display_df["matched_skills"] = display_df["matched_skills"].apply(
+                    lambda skills: (
+                        ", ".join(skills) if isinstance(skills, list) else str(skills)
+                    )
                 )
 
-                display_df["missing_skills"] = display_df[
-                    "missing_skills"
-                ].apply(
-                    lambda skills: ", ".join(skills)
-                    if isinstance(skills, list)
-                    else str(skills)
+                display_df["missing_skills"] = display_df["missing_skills"].apply(
+                    lambda skills: (
+                        ", ".join(skills) if isinstance(skills, list) else str(skills)
+                    )
                 )
 
                 st.subheader("Ranked Candidates")

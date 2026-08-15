@@ -1,4 +1,5 @@
 import pytest
+
 from services.ranking_service import RankingService
 
 

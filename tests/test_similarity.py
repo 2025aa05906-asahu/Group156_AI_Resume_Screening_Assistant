@@ -1,5 +1,6 @@
 import numpy as np
 import pytest
+
 from services.similarity_service import SimilarityModel
 
 

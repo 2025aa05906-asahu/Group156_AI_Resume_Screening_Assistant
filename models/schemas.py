@@ -27,7 +27,7 @@ class PredictionResponse(BaseModel):
     similarity_score: float = Field(
         ...,
         description=(
-            "Semantic similarity score between the resume and job description"
+            "Semantic similarity score between the resume " "and job description"
         ),
         examples=[85.5],
     )
@@ -40,7 +40,9 @@ class PredictionResponse(BaseModel):
 
     matched_skills: List[str] = Field(
         ...,
-        description=("Technical skills found in both the job description and resume"),
+        description=(
+            "Technical skills found in both the job description " "and resume"
+        ),
         examples=[["python", "fastapi", "machine learning"]],
     )
 
