@@ -1,0 +1,2 @@
+[1m.\models\schemas.py[m[36m:[m51[36m:[m89[36m:[m [1m[31mE501[m line too long (99 > 88 characters)
+[1m.\models\schemas.py[m[36m:[m63[36m:[m6[36m:[m [1m[31mW292[m no newline at end of file

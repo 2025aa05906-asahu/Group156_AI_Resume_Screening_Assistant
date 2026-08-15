@@ -1,4 +1,6 @@
 import streamlit as st
+
+from services.screening_service import ScreeningService
 from utils.logger import setup_logger
 
 setup_logger()
@@ -23,4 +25,6 @@ if st.button("Analyze Resumes"):
         # Save files temporarily
         # Then call ScreeningService.analyze()
 
-        st.success("Resume screening completed.")
+        st.success(
+            "Resume screening completed."
+        )
