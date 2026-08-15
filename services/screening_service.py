@@ -3,7 +3,6 @@ import os
 from typing import List
 
 import pandas as pd
-
 from preprocessing.parser import JDParser, ResumeParser
 from services.ranking_service import RankingService
 
@@ -27,9 +26,7 @@ class ScreeningService:
         if not resume_file_paths:
             raise ValueError("At least one resume is required.")
 
-        jd_text = JDParser.extract_text(
-            jd_file_path
-        )
+        jd_text = JDParser.extract_text(jd_file_path)
 
         resumes = []
 
@@ -37,9 +34,7 @@ class ScreeningService:
             resumes.append(
                 {
                     "name": os.path.basename(resume_path),
-                    "text": ResumeParser.extract_text(
-                        resume_path
-                    ),
+                    "text": ResumeParser.extract_text(resume_path),
                 }
             )
 
@@ -48,8 +43,6 @@ class ScreeningService:
             resumes,
         )
 
-        logger.info(
-            "Resume screening completed successfully."
-        )
+        logger.info("Resume screening completed successfully.")
 
         return pd.DataFrame(results)

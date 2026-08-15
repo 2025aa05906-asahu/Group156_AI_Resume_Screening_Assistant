@@ -1,9 +1,7 @@
 from pathlib import Path
 
 import pytest
-
 from preprocessing import JDParser, ResumeParser
-
 
 # Get the project root directory.
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -17,9 +15,7 @@ def test_resume_parser():
 
     resume_path = TEST_FILES / "resume_1.txt"
 
-    resume_text = ResumeParser.extract_text(
-        str(resume_path)
-    )
+    resume_text = ResumeParser.extract_text(str(resume_path))
 
     # The parser should return text.
     assert isinstance(resume_text, str)
@@ -33,9 +29,7 @@ def test_job_description_parser():
 
     jd_path = TEST_FILES / "job_description.txt"
 
-    jd_text = JDParser.extract_text(
-        str(jd_path)
-    )
+    jd_text = JDParser.extract_text(str(jd_path))
 
     # The parser should return text.
     assert isinstance(jd_text, str)
@@ -54,9 +48,7 @@ def test_multiple_resume_files():
     ]
 
     for resume_path in resume_files:
-        resume_text = ResumeParser.extract_text(
-            str(resume_path)
-        )
+        resume_text = ResumeParser.extract_text(str(resume_path))
 
         assert isinstance(resume_text, str)
         assert len(resume_text.strip()) > 0
@@ -68,6 +60,4 @@ def test_resume_parser_missing_file():
     missing_path = TEST_FILES / "does_not_exist.txt"
 
     with pytest.raises((FileNotFoundError, ValueError, RuntimeError, OSError)):
-        ResumeParser.extract_text(
-            str(missing_path)
-        )
+        ResumeParser.extract_text(str(missing_path))

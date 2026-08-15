@@ -1,5 +1,4 @@
 import pytest
-
 from services.ranking_service import RankingService
 
 
@@ -123,10 +122,7 @@ def test_candidates_are_sorted_by_score(monkeypatch):
         resumes,
     )
 
-    scores_in_result = [
-        candidate["score"]
-        for candidate in result
-    ]
+    scores_in_result = [candidate["score"] for candidate in result]
 
     assert scores_in_result == sorted(
         scores_in_result,

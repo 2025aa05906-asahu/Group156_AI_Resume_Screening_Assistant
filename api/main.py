@@ -1,18 +1,12 @@
 import logging
 
 from fastapi import FastAPI, HTTPException
-
-from models.schemas import (
-    HealthResponse,
-    PredictionRequest,
-    PredictionResponse,
-)
+from models.schemas import HealthResponse, PredictionRequest, PredictionResponse
 from preprocessing.skill_extraction import SkillExtractor
 from preprocessing.text_preprocessor import TextPreprocessor
 from services.embedding_service import EmbeddingModel
 from services.similarity_service import SimilarityModel
 from utils.logger import setup_logger
-
 
 setup_logger()
 
@@ -42,9 +36,7 @@ def health_check():
 
     logger.info("Health check requested")
 
-    return {
-        "status": "healthy"
-    }
+    return {"status": "healthy"}
 
 
 @app.post(
@@ -64,65 +56,34 @@ def predict(request: PredictionRequest):
 
     try:
         # Preprocess job description and resume
-        jd_clean = TextPreprocessor.preprocess(
-            request.job_description
-        )
+        jd_clean = TextPreprocessor.preprocess(request.job_description)
 
-        resume_clean = TextPreprocessor.preprocess(
-            request.resume_text
-        )
+        resume_clean = TextPreprocessor.preprocess(request.resume_text)
 
         # Generate embeddings
-        jd_embedding = (
-            EmbeddingModel.generate_embedding(
-                jd_clean
-            )
-        )
+        jd_embedding = EmbeddingModel.generate_embedding(jd_clean)
 
-        resume_embedding = (
-            EmbeddingModel.generate_embedding(
-                resume_clean
-            )
-        )
+        resume_embedding = EmbeddingModel.generate_embedding(resume_clean)
 
         # Calculate semantic similarity
-        score, category = (
-            SimilarityModel.calculate_similarity(
-                resume_embedding,
-                jd_embedding,
-            )
+        score, category = SimilarityModel.calculate_similarity(
+            resume_embedding,
+            jd_embedding,
         )
 
         # Extract skills
-        jd_skills = set(
-            SkillExtractor.extract_skills(
-                request.job_description
-            )
-        )
+        jd_skills = set(SkillExtractor.extract_skills(request.job_description))
 
-        resume_skills = set(
-            SkillExtractor.extract_skills(
-                request.resume_text
-            )
-        )
+        resume_skills = set(SkillExtractor.extract_skills(request.resume_text))
 
         # Find matched and missing skills
-        matched_skills = sorted(
-            jd_skills.intersection(
-                resume_skills
-            )
-        )
+        matched_skills = sorted(jd_skills.intersection(resume_skills))
 
-        missing_skills = sorted(
-            jd_skills.difference(
-                resume_skills
-            )
-        )
+        missing_skills = sorted(jd_skills.difference(resume_skills))
 
         # Log successful prediction
         logger.info(
-            "Prediction completed successfully | "
-            "category=%s | score=%.4f",
+            "Prediction completed successfully | " "category=%s | score=%.4f",
             category,
             score,
         )
@@ -146,9 +107,7 @@ def predict(request: PredictionRequest):
         ) from exc
 
     except Exception:
-        logger.exception(
-            "Unexpected error during prediction"
-        )
+        logger.exception("Unexpected error during prediction")
 
         raise HTTPException(
             status_code=500,

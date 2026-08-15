@@ -1,5 +1,4 @@
 import pytest
-
 from utils.validator import validate_file
 
 

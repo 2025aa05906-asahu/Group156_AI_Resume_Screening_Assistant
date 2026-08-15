@@ -9,9 +9,9 @@ This package contains modules responsible for:
 - Information Extraction
 """
 
-from .parser import ResumeParser, JDParser
-from .text_preprocessor import TextPreprocessor
+from .parser import JDParser, ResumeParser
 from .skill_extraction import SkillExtractor
+from .text_preprocessor import TextPreprocessor
 
 __all__ = [
     "ResumeParser",

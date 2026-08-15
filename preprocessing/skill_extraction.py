@@ -2,7 +2,6 @@ import logging
 import re
 from typing import List
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -61,9 +60,7 @@ class SkillExtractor:
         """Extract technical skills from text."""
 
         if not text:
-            logger.warning(
-                "Empty text supplied for skill extraction."
-            )
+            logger.warning("Empty text supplied for skill extraction.")
             return []
 
         text = re.sub(
@@ -73,9 +70,7 @@ class SkillExtractor:
         ).strip()
 
         found_skills = [
-            skill
-            for skill, pattern in SKILL_PATTERNS.items()
-            if pattern.search(text)
+            skill for skill, pattern in SKILL_PATTERNS.items() if pattern.search(text)
         ]
 
         logger.info(

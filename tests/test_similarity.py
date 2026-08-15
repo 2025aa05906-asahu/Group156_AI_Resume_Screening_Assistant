@@ -1,15 +1,12 @@
 import numpy as np
 import pytest
-
 from services.similarity_service import SimilarityModel
 
 
 def test_similarity_identical_vectors():
     """Test that identical vectors produce a perfect match."""
 
-    vector = np.array(
-        [1.0, 0.0, 0.0]
-    )
+    vector = np.array([1.0, 0.0, 0.0])
 
     score, category = SimilarityModel.calculate_similarity(
         vector,
@@ -23,13 +20,9 @@ def test_similarity_identical_vectors():
 def test_similarity_dimension_mismatch():
     """Test that vectors with different dimensions are rejected."""
 
-    v1 = np.array(
-        [1.0, 0.0]
-    )
+    v1 = np.array([1.0, 0.0])
 
-    v2 = np.array(
-        [1.0, 0.0, 0.0]
-    )
+    v2 = np.array([1.0, 0.0, 0.0])
 
     with pytest.raises(ValueError):
         SimilarityModel.calculate_similarity(
@@ -41,13 +34,9 @@ def test_similarity_dimension_mismatch():
 def test_similarity_score_range():
     """Test that the similarity score is within the valid range."""
 
-    v1 = np.array(
-        [1.0, 0.0, 0.0]
-    )
+    v1 = np.array([1.0, 0.0, 0.0])
 
-    v2 = np.array(
-        [0.0, 1.0, 0.0]
-    )
+    v2 = np.array([0.0, 1.0, 0.0])
 
     score, category = SimilarityModel.calculate_similarity(
         v1,
@@ -62,13 +51,9 @@ def test_similarity_score_range():
 def test_similarity_zero_vector():
     """Test that a zero vector is handled without crashing."""
 
-    v1 = np.array(
-        [0.0, 0.0, 0.0]
-    )
+    v1 = np.array([0.0, 0.0, 0.0])
 
-    v2 = np.array(
-        [1.0, 0.0, 0.0]
-    )
+    v2 = np.array([1.0, 0.0, 0.0])
 
     score, category = SimilarityModel.calculate_similarity(
         v1,

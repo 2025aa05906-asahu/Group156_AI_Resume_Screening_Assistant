@@ -1,13 +1,6 @@
 import pandas as pd
-from sklearn.metrics import (
-    accuracy_score,
-    precision_score,
-    recall_score,
-    f1_score,
-)
-
 from services.ranking_service import RankingService
-
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
 EVALUATION_FILE = "data/evaluation/labelled_candidates.csv"
 RELEVANCE_THRESHOLD = 70.0
@@ -57,17 +50,12 @@ def test_ranking_quality_metrics():
         resumes,
     )
 
-    scores = {
-        result["name"]: result["score"]
-        for result in results
-    }
+    scores = {result["name"]: result["score"] for result in results}
 
     y_true = data["actual_relevant"].tolist()
 
     y_pred = [
-        1
-        if scores.get(candidate, 0.0) >= RELEVANCE_THRESHOLD
-        else 0
+        1 if scores.get(candidate, 0.0) >= RELEVANCE_THRESHOLD else 0
         for candidate in data["candidate"]
     ]
 
@@ -126,9 +114,6 @@ def test_predictions_match_evaluation_candidates():
         resumes,
     )
 
-    result_names = {
-        result["name"]
-        for result in results
-    }
+    result_names = {result["name"] for result in results}
 
     assert result_names == set(data["candidate"])

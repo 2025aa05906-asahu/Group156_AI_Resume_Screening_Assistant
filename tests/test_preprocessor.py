@@ -2,10 +2,7 @@ from preprocessing.text_preprocessor import TextPreprocessor
 
 
 def test_clean_text():
-    text = (
-        "Python Developer! "
-        "Contact: test@example.com"
-    )
+    text = "Python Developer! " "Contact: test@example.com"
 
     result = TextPreprocessor.clean_text(text)
 

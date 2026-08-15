@@ -1,6 +1,4 @@
-from preprocessing.skill_extraction import (
-    SkillExtractor,
-)
+from preprocessing.skill_extraction import SkillExtractor
 
 
 def test_extract_python():
@@ -12,9 +10,7 @@ def test_extract_python():
 
 
 def test_extract_multiple_skills():
-    text = (
-        "Python, SQL, Docker and Machine Learning"
-    )
+    text = "Python, SQL, Docker and Machine Learning"
 
     skills = SkillExtractor.extract_skills(text)
 

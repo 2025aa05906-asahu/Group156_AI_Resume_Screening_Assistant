@@ -2,7 +2,6 @@ import logging
 
 from sentence_transformers import SentenceTransformer
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -24,13 +23,9 @@ class EmbeddingModel:
                     cls.MODEL_NAME,
                 )
 
-                cls._model = SentenceTransformer(
-                    cls.MODEL_NAME
-                )
+                cls._model = SentenceTransformer(cls.MODEL_NAME)
 
-                logger.info(
-                    "Embedding model loaded successfully."
-                )
+                logger.info("Embedding model loaded successfully.")
 
             except Exception as exc:
                 logger.error(
@@ -38,9 +33,7 @@ class EmbeddingModel:
                     exc,
                 )
 
-                raise RuntimeError(
-                    "Unable to load embedding model."
-                ) from exc
+                raise RuntimeError("Unable to load embedding model.") from exc
 
         return cls._model
 
@@ -49,15 +42,11 @@ class EmbeddingModel:
         """Generate a semantic embedding for the input text."""
 
         if not text or not text.strip():
-            raise ValueError(
-                "Input text cannot be empty."
-            )
+            raise ValueError("Input text cannot be empty.")
 
         model = cls.load_model()
 
-        logger.info(
-            "Generating text embedding."
-        )
+        logger.info("Generating text embedding.")
 
         return model.encode(
             text.strip(),
