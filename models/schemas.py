@@ -10,18 +10,14 @@ class PredictionRequest(BaseModel):
         ...,
         min_length=10,
         description="Job Description text",
-        examples=[
-            "Python developer with experience in FastAPI and machine learning"
-        ],
+        examples=["Python developer with experience in FastAPI and machine learning"],
     )
 
     resume_text: str = Field(
         ...,
         min_length=10,
         description="Candidate resume text",
-        examples=[
-            "Python developer with experience in FastAPI and machine learning"
-        ],
+        examples=["Python developer with experience in FastAPI and machine learning"],
     )
 
 
@@ -30,7 +26,9 @@ class PredictionResponse(BaseModel):
 
     similarity_score: float = Field(
         ...,
-        description="Semantic similarity score between the resume and job description",
+        description=(
+            "Semantic similarity score between the resume and job description"
+        ),
         examples=[85.5],
     )
 
@@ -42,13 +40,16 @@ class PredictionResponse(BaseModel):
 
     matched_skills: List[str] = Field(
         ...,
-        description="Technical skills found in both the job description and resume",
+        description=("Technical skills found in both the job description and resume"),
         examples=[["python", "fastapi", "machine learning"]],
     )
 
     missing_skills: List[str] = Field(
         ...,
-        description="Technical skills required by the job description but missing from the resume",
+        description=(
+            "Technical skills required by the job description "
+            "but missing from the resume"
+        ),
         examples=[["docker", "aws"]],
     )
 
