@@ -1,5 +1,6 @@
 import numpy as np
 import pytest
+
 from services.embedding_service import EmbeddingModel
 from services.similarity_service import SimilarityModel
 

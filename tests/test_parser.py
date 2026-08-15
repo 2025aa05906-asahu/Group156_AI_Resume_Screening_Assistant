@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pytest
+
 from preprocessing import JDParser, ResumeParser
 
 # Get the project root directory.

@@ -1,6 +1,7 @@
 import logging
 
 from fastapi import FastAPI, HTTPException
+
 from models.schemas import HealthResponse, PredictionRequest, PredictionResponse
 from preprocessing.skill_extraction import SkillExtractor
 from preprocessing.text_preprocessor import TextPreprocessor

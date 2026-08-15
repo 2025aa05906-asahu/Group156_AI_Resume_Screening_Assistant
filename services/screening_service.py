@@ -3,6 +3,7 @@ import os
 from typing import List
 
 import pandas as pd
+
 from preprocessing.parser import JDParser, ResumeParser
 from services.ranking_service import RankingService
 
