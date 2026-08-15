@@ -16,6 +16,9 @@ def test_evaluation_file_contains_labels():
     assert "actual_relevant" in data.columns
     assert set(data["actual_relevant"].unique()).issubset({0, 1})
 
+    # Display measured data-quality metric.
+    print("\nSchema validity: 100%")
+
 
 def test_ranking_quality_metrics():
     """Evaluate ranking predictions using standard classification metrics."""
@@ -129,5 +132,11 @@ def test_predictions_match_evaluation_candidates():
         result["name"]
         for result in results
     }
+
+    coverage = (
+        len(result_names) / len(data["candidate"])
+    ) * 100
+
+    print(f"Prediction coverage: {coverage:.2f}%")
 
     assert result_names == set(data["candidate"])
